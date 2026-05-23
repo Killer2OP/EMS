@@ -29,6 +29,11 @@ module.exports = {
         'sidebar-hover': 'var(--sidebar-hover)',
         'sidebar-active': 'var(--sidebar-active)',
         'sidebar-active-text': 'var(--sidebar-active-text)',
+        'input-bg': 'var(--input-bg)',
+        'input-border': 'var(--input-border)',
+        'input-text': 'var(--input-text)',
+        'table-header-bg': 'var(--table-header-bg)',
+        'table-row-hover': 'var(--table-row-hover)',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
