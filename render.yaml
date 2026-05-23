@@ -1,0 +1,26 @@
+services:
+  # Spring Boot Backend
+  - type: web
+    name: vidyutseva-backend
+    env: docker
+    dockerContext: backend
+    dockerfilePath: ./backend/Dockerfile
+    region: oregon
+    plan: free
+    healthCheckPath: /api/consumers
+    envVars:
+      - key: PORT
+        value: 8080
+
+  # Angular Frontend
+  - type: web
+    name: vidyutseva-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist/electricity-ms/browser
+    region: oregon
+    pullRequestPreviewsEnabled: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
