@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ComplaintService } from '../../shared/services/complaint.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { ToastService } from '../../shared/services/toast.service';
@@ -39,7 +40,7 @@ import { ToastService } from '../../shared/services/toast.service';
           <!-- Description -->
           <div class="mb-4">
             <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Description</label>
-            <textarea class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors resize-y min-h-[100px] focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted" formControlName="description" rows="4" placeholder="Describe your issue in detail (min 10 characters)..."
+            <textarea class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors resize-y min-h-[100px] focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted" formControlName="description" rows="4" placeholder="Describe your issue in detail (min 20 characters)..."
               [class.error]="f('description')?.invalid && f('description')?.touched"></textarea>
             <div class="flex justify-between mt-1">
               <div>
@@ -47,7 +48,7 @@ import { ToastService } from '../../shared/services/toast.service';
                   <span class="text-[0.72rem] text-red-500 mt-1">Description is required</span>
                 }
                 @if (f('description')?.hasError('minlength') && f('description')?.touched) {
-                  <span class="text-[0.72rem] text-red-500 mt-1">Description must be at least 10 characters</span>
+                  <span class="text-[0.72rem] text-red-500 mt-1">Description must be at least 20 characters</span>
                 }
                 @if (f('description')?.hasError('maxlength') && f('description')?.touched) {
                   <span class="text-[0.72rem] text-red-500 mt-1">Description cannot exceed 500 characters</span>
@@ -102,10 +103,11 @@ export class RegisterComplaintComponent {
   private auth = inject(AuthService);
   private toast = inject(ToastService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   complaintForm = this.fb.group({
     category: ['', Validators.required],
-    description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+    description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]],
   });
 
   priority: 'Low' | 'Medium' | 'High' = 'Medium';
@@ -137,11 +139,18 @@ export class RegisterComplaintComponent {
       category: val.category!,
       description: val.description!,
       priority: this.priority,
-    }).subscribe(c => {
-      this.submitting = false;
-      this.toast.success(`Complaint registered! ID: ${c.id}`);
-      this.complaintForm.reset();
-      this.fileName = '';
+    }).subscribe({
+      next: (c) => {
+        this.submitting = false;
+        this.toast.success(`Complaint registered! ID: ${c.id}`);
+        this.complaintForm.reset();
+        this.fileName = '';
+        this.router.navigate(['/customer/my-complaints']);
+      },
+      error: (err) => {
+        this.submitting = false;
+        this.toast.error('Failed to submit complaint. Please check your inputs.');
+      }
     });
   }
 }
