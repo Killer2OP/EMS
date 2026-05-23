@@ -65,7 +65,7 @@ import { ToastService } from '../../shared/services/toast.service';
                 <button
                   type="button"
                   class="px-4 py-1.5 rounded-full text-xs font-semibold border-2 transition-all"
-                  [class]="priority === p.value ? p.activeClass : 'border-border text-text-muted bg-white'"
+                  [class]="priority === p.value ? p.activeClass : 'border-border text-text-muted bg-input-bg'"
                   (click)="priority = p.value"
                 >
                   {{ p.label }}
