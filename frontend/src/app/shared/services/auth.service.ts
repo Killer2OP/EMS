@@ -49,13 +49,12 @@ export class AuthService {
     );
   }
 
-  register(data: { name: string; email: string; password: string; consumerNumber?: string }): Observable<any> {
+  register(data: { name: string; email: string; password: string }): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/register`, {
-      username: data.email,
+      username: data.name,
       email: data.email,
       phone: '9999999999', // Placeholder since UI doesn't ask for it
-      password: data.password,
-      consumerNumber: data.consumerNumber || '0000000000000'
+      password: data.password
     });
   }
 

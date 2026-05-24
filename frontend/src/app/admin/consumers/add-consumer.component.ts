@@ -33,7 +33,7 @@ import { ToastService } from '../../shared/services/toast.service';
               <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Consumer Number</label>
               <div class="flex gap-2">
                 <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted flex-1" formControlName="consumerNumber" placeholder="Auto-generated" readonly>
-                <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" style="white-space: nowrap;" type="button" (click)="generateNumber()">🔄 Generate</button>
+                <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" style="white-space: nowrap;" type="button" (click)="generateNumber()"><span class="material-symbols-outlined text-[1.2em] align-middle">sync</span> Generate</button>
               </div>
             </div>
           </div>
@@ -62,10 +62,10 @@ import { ToastService } from '../../shared/services/toast.service';
             </div>
             <div class="flex flex-col gap-1.5">
               <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Connection Type</label>
-              <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" formControlName="connectionType">
+              <div class="relative w-full"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" formControlName="connectionType">
                 <option value="Domestic">Residential</option>
                 <option value="Commercial">Commercial</option>
-              </select>
+              </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
             </div>
           </div>
           <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-4">
@@ -95,24 +95,24 @@ import { ToastService } from '../../shared/services/toast.service';
           <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-4">
             <div class="flex flex-col gap-1.5">
               <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Zone</label>
-              <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" formControlName="zone">
+              <div class="relative w-full"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" formControlName="zone">
                 <option value="Zone A">Zone A</option>
                 <option value="Zone B">Zone B</option>
                 <option value="Zone C">Zone C</option>
-              </select>
+              </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
             </div>
             <div class="flex flex-col gap-1.5">
               <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Tariff Category</label>
-              <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" formControlName="tariffCategory">
+              <div class="relative w-full"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" formControlName="tariffCategory">
                 <option value="LT-1">LT-1 (Domestic)</option>
                 <option value="HT-1">HT-1 (Commercial)</option>
                 <option value="HT-2">HT-2 (Industrial)</option>
-              </select>
+              </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
             </div>
           </div>
 
           <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full py-3 mt-4" (click)="submit()" [disabled]="submitting">
-            {{ submitting ? '⏳ Adding...' : '➕ Add Consumer' }}
+            @if (submitting) { <span class="material-symbols-outlined text-[1.2em] align-middle">hourglass_empty</span> Adding... } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">add</span> Add Consumer }
           </button>
         </form>
       </div>

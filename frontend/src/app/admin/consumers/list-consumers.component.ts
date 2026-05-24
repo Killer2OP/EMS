@@ -19,16 +19,16 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
     <div class="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
       <div class="table-search-bar">
         <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted" style="max-width: 280px;" placeholder="Search by name, consumer no, email..." [(ngModel)]="search" (ngModelChange)="applyFilters()">
-        <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" style="max-width: 160px;" [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()">
+        <div class="relative inline-block w-full align-middle" style="max-width: 160px;"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" style="max-width: 160px;" [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()">
           <option value="All">All Status</option>
           <option value="Active">Active</option>
           <option value="Disconnected">Disconnected</option>
-        </select>
-        <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" style="max-width: 160px;" [(ngModel)]="typeFilter" (ngModelChange)="applyFilters()">
+        </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
+        <div class="relative inline-block w-full align-middle" style="max-width: 160px;"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" style="max-width: 160px;" [(ngModel)]="typeFilter" (ngModelChange)="applyFilters()">
           <option value="All">All Types</option>
           <option value="Domestic">Residential</option>
           <option value="Commercial">Commercial</option>
-        </select>
+        </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
       </div>
 
       <div class="ems-table-wrapper">

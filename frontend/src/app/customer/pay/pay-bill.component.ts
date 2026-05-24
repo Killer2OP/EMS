@@ -15,7 +15,7 @@ import { ToastService } from '../../shared/services/toast.service';
     @if (receipt) {
       <div class="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
         <div class="card-body text-center py-12 px-4">
-          <div class="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-3xl text-white mx-auto mb-6 shadow-[0_0_0_12px_rgba(34,197,94,0.1)] animate-[bounceIn_0.5s_ease-out]">✅</div>
+          <div class="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-3xl text-white mx-auto mb-6 shadow-[0_0_0_12px_rgba(34,197,94,0.1)] animate-[bounceIn_0.5s_ease-out]"><span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span></div>
           <h2>Payment Successful!</h2>
           <p>Your electricity bill has been paid successfully.</p>
 
@@ -41,7 +41,7 @@ import { ToastService } from '../../shared/services/toast.service';
           </div>
 
           <div class="flex gap-3 justify-center flex-wrap mt-6">
-            <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed" (click)="printReceipt()">🖨️ Print Receipt</button>
+            <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed" (click)="printReceipt()"><span class="material-symbols-outlined text-[1.2em] align-middle">print</span> Print Receipt</button>
             <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" (click)="reset()">← Pay Another Bill</button>
           </div>
         </div>
@@ -66,7 +66,7 @@ import { ToastService } from '../../shared/services/toast.service';
                   <button class="flex-1 py-2.5 rounded-lg text-sm font-medium transition-all"
                     [class]="method === m.value ? 'bg-white text-text-primary shadow-sm' : 'text-text-muted hover:text-text-primary'"
                     (click)="switchMethod(m.value)">
-                    {{ m.icon }} {{ m.label }}
+                    <span [innerHTML]="m.icon"></span> {{ m.label }}
                   </button>
                 }
               </div>
@@ -75,7 +75,7 @@ import { ToastService } from '../../shared/services/toast.service';
                 <!-- UPI -->
                 @if (method === 'UPI') {
                   <div class="text-center py-4">
-                    <div class="text-4xl mb-2">📱</div>
+                    <div class="text-4xl mb-2"><span class="material-symbols-outlined text-[1.2em] align-middle">smartphone</span></div>
                     <p class="text-text-muted text-sm mb-4">Enter your UPI ID to proceed</p>
                     <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted mx-auto" style="max-width: 300px;" type="text" formControlName="upiId" placeholder="yourname&#64;upi"
                       [class.error]="f('upiId')?.invalid && f('upiId')?.touched">
@@ -148,7 +148,7 @@ import { ToastService } from '../../shared/services/toast.service';
                           [class]="selectedBank === b.name ? 'border-primary bg-sky' : 'border-border hover:border-accent/30'"
                           (click)="selectBank(b.name)"
                         >
-                          <span class="text-2xl">{{ b.icon }}</span>
+                          <span class="text-2xl" [innerHTML]="b.icon"></span>
                           <span class="text-xs font-semibold">{{ b.name }}</span>
                         </button>
                       }
@@ -161,7 +161,11 @@ import { ToastService } from '../../shared/services/toast.service';
               </form>
 
               <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-green-500 text-white border-none hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed w-full mt-5 py-3" (click)="pay()" [disabled]="paying || !isPaymentValid">
-                {{ paying ? '⏳ Processing...' : ('💳 Pay ₹' + bill.totalAmount) }}
+                @if (paying) {
+                  <span class="material-symbols-outlined text-[1.2em] align-middle">hourglass_empty</span> Processing...
+                } @else {
+                  <span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span> Pay ₹{{ bill.totalAmount }}
+                }
               </button>
             </div>
           </div>
@@ -180,7 +184,7 @@ import { ToastService } from '../../shared/services/toast.service';
               <div class="flex justify-between items-center py-2 border-b border-dashed border-border last:border-b-0 flex justify-between items-center py-2 border-b border-dashed border-border last:border-b-0 mt-2"><span class="text-[0.82rem] text-text-secondary">Total Due</span><span class="text-[0.85rem] font-semibold text-text-primary">₹{{ bill.totalAmount }}</span></div>
             </div>
             <div class="mt-4 bg-success/10 border border-success/30 rounded-lg px-3 py-2 text-xs text-success">
-              🔒 Your payment is secured with 256-bit SSL encryption
+              <span class="material-symbols-outlined text-[1.2em] align-middle">lock</span> Your payment is secured with 256-bit SSL encryption
             </div>
           </div>
         </div>
@@ -191,7 +195,7 @@ import { ToastService } from '../../shared/services/toast.service';
       <div class="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
         <div class="card-body">
           <div class="empty-state">
-            <div class="empty-icon">💳</div>
+            <div class="empty-icon"><span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span></div>
             <h3>No Unpaid Bills</h3>
             <p>All your bills are paid. Check back later.</p>
           </div>
@@ -223,14 +227,14 @@ export class PayBillComponent implements OnInit {
   });
 
   methods = [
-    { value: 'UPI' as const, label: 'UPI', icon: '📱' },
-    { value: 'Card' as const, label: 'Card', icon: '💳' },
-    { value: 'NetBanking' as const, label: 'Net Banking', icon: '🏦' },
+    { value: 'UPI' as const, label: 'UPI', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">smartphone</span>' },
+    { value: 'Card' as const, label: 'Card', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span>' },
+    { value: 'NetBanking' as const, label: 'Net Banking', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">account_balance</span>' },
   ];
 
   banks = [
-    { name: 'SBI', icon: '🏛️' }, { name: 'HDFC', icon: '🏦' }, { name: 'ICICI', icon: '💼' },
-    { name: 'Axis', icon: '🔵' }, { name: 'Kotak', icon: '🔴' }, { name: 'PNB', icon: '🟠' },
+    { name: 'SBI', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">account_balance</span>' }, { name: 'HDFC', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">account_balance</span>' }, { name: 'ICICI', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">work</span>' },
+    { name: 'Axis', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">circle</span>' }, { name: 'Kotak', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">circle</span>' }, { name: 'PNB', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">circle</span>' },
   ];
 
   f(field: string) { return this.paymentForm.get(field); }
@@ -312,7 +316,7 @@ export class PayBillComponent implements OnInit {
         .subscribe(r => {
           this.receipt = r;
           this.paying = false;
-          this.toast.success('Payment successful! 🎉');
+          this.toast.success('Payment successful! <span class="material-symbols-outlined text-[1.2em] align-middle">celebration</span>');
         });
     }, 1500);
   }

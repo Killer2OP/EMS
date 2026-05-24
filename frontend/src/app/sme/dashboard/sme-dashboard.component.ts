@@ -14,16 +14,16 @@ import { ComplaintService, Complaint } from '../../shared/services/complaint.ser
 </div>
 
     <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 rounded-2xl p-8 text-white mb-6 relative overflow-hidden after:content-['⚡'] after:absolute after:right-8 after:top-1/2 after:-translate-y-1/2 after:text-[5rem] after:opacity-10">
-      <h2 class="m-0 mb-1 text-[1.5rem] font-bold">Welcome, SME! 🔧</h2>
+      <h2 class="m-0 mb-1 text-[1.5rem] font-bold">Welcome, SME! <span class="material-symbols-outlined text-[1.2em] align-middle">build</span></h2>
 <p class="m-0 mb-4 text-white/70 text-[0.85rem]">Manage and resolve assigned complaints</p>
     </div>
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <app-stats-card icon="📋" label="Total Assigned" [value]="'' + totalAssigned" iconBg="#E8F4FD" borderColor="#003087" />
-      <app-stats-card icon="🔴" label="Open" [value]="'' + openCount" iconBg="#FEE2E2" borderColor="#EF4444" />
-      <app-stats-card icon="🟡" label="In Progress" [value]="'' + inProgressCount" iconBg="#FEF3C7" borderColor="#F59E0B" />
-      <app-stats-card icon="✅" label="Resolved" [value]="'' + resolvedCount" iconBg="#DCFCE7" borderColor="#22C55E" />
+      <app-stats-card icon="assignment" label="Total Assigned" [value]="'' + totalAssigned" iconBg="#E8F4FD" borderColor="#003087" />
+      <app-stats-card icon="circle" label="Open" [value]="'' + openCount" iconBg="#FEE2E2" borderColor="#EF4444" />
+      <app-stats-card icon="circle" label="In Progress" [value]="'' + inProgressCount" iconBg="#FEF3C7" borderColor="#F59E0B" />
+      <app-stats-card icon="check_circle" label="Resolved" [value]="'' + resolvedCount" iconBg="#DCFCE7" borderColor="#22C55E" />
     </div>
 
     <!-- Complaint Queue -->

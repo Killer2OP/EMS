@@ -19,7 +19,7 @@ import { ComplaintService, Complaint } from '../../shared/services/complaint.ser
         <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Search Query</label>
         <div class="flex gap-3">
           <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted flex-1" type="text" [(ngModel)]="query" placeholder="Complaint ID or Consumer Name">
-          <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed" (click)="search()" [disabled]="!query">🔍 Search</button>
+          <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed" (click)="search()" [disabled]="!query"><span class="material-symbols-outlined text-[1.2em] align-middle">search</span> Search</button>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@ import { ComplaintService, Complaint } from '../../shared/services/complaint.ser
       <div class="bg-card rounded-2xl shadow-sm border border-border overflow-hidden w-full max-w-5xl">
         <div class="card-body">
           <div class="empty-state">
-            <div class="empty-icon">🔍</div>
+            <div class="empty-icon"><span class="material-symbols-outlined text-[1.2em] align-middle">search</span></div>
             <h3>No Results</h3>
             <p>No complaints found matching "{{ query }}".</p>
           </div>

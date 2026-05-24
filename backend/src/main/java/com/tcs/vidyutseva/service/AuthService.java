@@ -7,6 +7,7 @@ import com.tcs.vidyutseva.entity.Consumer;
 import com.tcs.vidyutseva.entity.UserAccount;
 import com.tcs.vidyutseva.enums.Role;
 import com.tcs.vidyutseva.exception.ConsumerNotFoundException;
+import com.tcs.vidyutseva.enums.TariffType;
 import com.tcs.vidyutseva.repository.ConsumerRepository;
 import com.tcs.vidyutseva.repository.UserAccountRepository;
 import com.tcs.vidyutseva.security.JwtUtil;
@@ -32,11 +33,15 @@ public class AuthService {
         if (userRepo.existsByEmail(req.getEmail()))
             throw new RuntimeException("Email already registered");
 
-        Consumer consumer = consumerRepo.findByConsumerNumber(req.getConsumerNumber())
-            .orElseThrow(() -> new ConsumerNotFoundException("No consumer found with number: " + req.getConsumerNumber()));
-
-        if (consumer.getLinkedUser() != null)
-            throw new RuntimeException("This consumer number is already linked to another account");
+        String newConsumerNumber = String.valueOf(1000000000000L + (long)(Math.random() * 8999999999999L));
+        Consumer consumer = Consumer.builder()
+            .consumerNumber(newConsumerNumber)
+            .name(req.getUsername())
+            .address("Address Pending")
+            .meterNumber("MTR-" + (int)(Math.random() * 100000))
+            .tariffType(TariffType.DOMESTIC)
+            .build();
+        consumer = consumerRepo.save(consumer);
 
         UserAccount user = UserAccount.builder()
             .username(req.getUsername())

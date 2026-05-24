@@ -17,26 +17,26 @@ import { StatsCardComponent } from '../../shared/components/stats-card/stats-car
 </div>
 
     <div class="bg-gradient-to-br from-[#003087] via-[#0066CC] to-[#0078D4] rounded-2xl p-8 text-white mb-6 relative overflow-hidden after:content-['⚡'] after:absolute after:right-8 after:top-1/2 after:-translate-y-1/2 after:text-[5rem] after:opacity-10">
-      <h2 class="m-0 mb-1 text-[1.5rem] font-bold">Good {{ greeting }}, {{ firstName }}! 👋</h2>
+      <h2 class="m-0 mb-1 text-[1.5rem] font-bold">Good {{ greeting }}, {{ firstName }}! <span class="material-symbols-outlined text-[1.2em] align-middle">waving_hand</span></h2>
 <p class="m-0 mb-4 text-white/70 text-[0.85rem]">Here's your electricity account summary</p>
       <div class="inline-flex items-center gap-2 bg-white/15 px-3.5 py-1.5 rounded-full text-[0.78rem] font-medium backdrop-blur-sm">⚡ Consumer No: {{ user?.consumerNumber || 'CON-001' }}</div>
     </div>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <app-stats-card icon="💰" label="Total Due" [value]="'₹' + totalDue" iconBg="#FEE2E2" [borderColor]="totalDue > 0 ? '#EF4444' : '#22C55E'" />
-      <app-stats-card icon="📄" label="Last Bill Amount" [value]="'₹' + lastBillAmount" iconBg="#E8F4FD" borderColor="#003087" />
-      <app-stats-card icon="📋" label="Open Complaints" [value]="'' + openComplaints" iconBg="#FEF3C7" borderColor="#F59E0B" />
-      <app-stats-card icon="🔌" label="Consumer Number" [value]="user?.consumerNumber || 'CON-001'" iconBg="#DCFCE7" borderColor="#22C55E" />
+      <app-stats-card icon="payments" label="Total Due" [value]="'₹' + totalDue" iconBg="#FEE2E2" [borderColor]="totalDue > 0 ? '#EF4444' : '#22C55E'" />
+      <app-stats-card icon="description" label="Last Bill Amount" [value]="'₹' + lastBillAmount" iconBg="#E8F4FD" borderColor="#003087" />
+      <app-stats-card icon="assignment" label="Open Complaints" [value]="'' + openComplaints" iconBg="#FEF3C7" borderColor="#F59E0B" />
+      <app-stats-card icon="power" label="Consumer Number" [value]="user?.consumerNumber || 'CON-001'" iconBg="#DCFCE7" borderColor="#22C55E" />
     </div>
 
     <!-- Quick Actions -->
     <h3 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">Quick Actions</h3>
     <div class="flex gap-3 flex-wrap mb-6">
-      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/view-bill">📄 View Bill</a>
-      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-green-500 text-white border-none hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/pay-bill">💳 Pay Bill</a>
-      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-[#F5C518] text-[#1E293B] border-none hover:bg-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/register-complaint">📝 Register Complaint</a>
-      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/bill-history">🗂️ Bill History</a>
+      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/view-bill"><span class="material-symbols-outlined text-[1.2em] align-middle">description</span> View Bill</a>
+      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-green-500 text-white border-none hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/pay-bill"><span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span> Pay Bill</a>
+      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-[#F5C518] text-[#1E293B] border-none hover:bg-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/register-complaint"><span class="material-symbols-outlined text-[1.2em] align-middle">edit</span> Register Complaint</a>
+      <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/bill-history"><span class="material-symbols-outlined text-[1.2em] align-middle">folder_special</span> Bill History</a>
     </div>
 
     <!-- Recent Bills -->

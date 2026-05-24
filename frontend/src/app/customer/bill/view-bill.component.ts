@@ -95,9 +95,9 @@ import { AuthService } from '../../shared/services/auth.service';
 
           <!-- Actions -->
           <div class="flex gap-3 flex-wrap no-print">
-            <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" (click)="printBill()">🖨️ Download PDF</button>
+            <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-card text-text-primary border border-border hover:bg-card-hover disabled:opacity-50 disabled:cursor-not-allowed" (click)="printBill()"><span class="material-symbols-outlined text-[1.2em] align-middle">print</span> Download PDF</button>
             @if (bill.status !== 'Paid') {
-              <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-green-500 text-white border-none hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/pay-bill">💳 Pay Now</a>
+              <a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-green-500 text-white border-none hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed" routerLink="/customer/pay-bill"><span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span> Pay Now</a>
             }
           </div>
         </div>
@@ -106,7 +106,7 @@ import { AuthService } from '../../shared/services/auth.service';
       <div class="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
         <div class="card-body">
           <div class="empty-state">
-            <div class="empty-icon">📄</div>
+            <div class="empty-icon"><span class="material-symbols-outlined text-[1.2em] align-middle">description</span></div>
             <h3>No Bills Found</h3>
             <p>No bills are currently available for your account.</p>
           </div>

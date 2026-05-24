@@ -22,7 +22,7 @@ import { ToastService } from '../../shared/services/toast.service';
           <!-- Complaint Type -->
           <div class="mb-4">
             <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Complaint Type</label>
-            <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" formControlName="category"
+            <div class="relative w-full"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" formControlName="category"
               [class.error]="f('category')?.invalid && f('category')?.touched">
               <option value="">Select complaint type</option>
               <option value="Power Outage">Power Outage</option>
@@ -31,7 +31,7 @@ import { ToastService } from '../../shared/services/toast.service';
               <option value="Voltage Fluctuation">Voltage Fluctuation</option>
               <option value="New Connection Request">New Connection Request</option>
               <option value="Other">Other</option>
-            </select>
+            </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
             @if (f('category')?.hasError('required') && f('category')?.touched) {
               <span class="text-[0.72rem] text-red-500 mt-1">Please select a complaint type</span>
             }
@@ -69,7 +69,7 @@ import { ToastService } from '../../shared/services/toast.service';
                   [class]="priority === p.value ? p.activeClass : 'border-border text-text-muted bg-input-bg'"
                   (click)="priority = p.value"
                 >
-                  {{ p.label }}
+                  <span [innerHTML]="p.label"></span>
                 </button>
               }
             </div>
@@ -81,9 +81,9 @@ import { ToastService } from '../../shared/services/toast.service';
             <div class="border-2 border-dashed border-border rounded-xl p-6 text-center hover:border-accent/50 transition-colors cursor-pointer"
               (click)="fileInput.click()">
               @if (fileName) {
-                <p class="text-sm text-success font-medium">📎 {{ fileName }}</p>
+                <p class="text-sm text-success font-medium"><span class="material-symbols-outlined text-[1.2em] align-middle">attach_file</span> {{ fileName }}</p>
               } @else {
-                <p class="text-text-muted text-sm">📷 Click to upload or drag and drop</p>
+                <p class="text-text-muted text-sm"><span class="material-symbols-outlined text-[1.2em] align-middle">photo_camera</span> Click to upload or drag and drop</p>
                 <p class="text-xs text-text-muted mt-1">PNG, JPG up to 5MB</p>
               }
               <input #fileInput type="file" class="hidden" accept="image/*" (change)="onFileSelect($event)">
@@ -91,7 +91,7 @@ import { ToastService } from '../../shared/services/toast.service';
           </div>
 
           <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full py-3" (click)="submit()" [disabled]="submitting || complaintForm.invalid">
-            {{ submitting ? '⏳ Submitting...' : '📝 Submit Complaint' }}
+            @if (submitting) { <span class="material-symbols-outlined text-[1.2em] align-middle">hourglass_empty</span> Submitting... } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">edit</span> Submit Complaint }
           </button>
         </form>
       </div>
@@ -115,9 +115,9 @@ export class RegisterComplaintComponent {
   submitting = false;
 
   priorities = [
-    { value: 'Low' as const, label: '🟢 Low', activeClass: 'border-success bg-success/10 text-success' },
-    { value: 'Medium' as const, label: '🟡 Medium', activeClass: 'border-warning bg-warning/10 text-warning' },
-    { value: 'High' as const, label: '🔴 High', activeClass: 'border-danger bg-danger/10 text-danger' },
+    { value: 'Low' as const, label: '<span class="material-symbols-outlined text-[1.2em] align-middle">circle</span> Low', activeClass: 'border-success bg-success/10 text-success' },
+    { value: 'Medium' as const, label: '<span class="material-symbols-outlined text-[1.2em] align-middle">circle</span> Medium', activeClass: 'border-warning bg-warning/10 text-warning' },
+    { value: 'High' as const, label: '<span class="material-symbols-outlined text-[1.2em] align-middle">circle</span> High', activeClass: 'border-danger bg-danger/10 text-danger' },
   ];
 
   f(field: string) { return this.complaintForm.get(field); }

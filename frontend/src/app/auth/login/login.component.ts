@@ -23,7 +23,7 @@ import { ToastService } from '../../shared/services/toast.service';
           <div class="space-y-5">
             @for (f of features; track f.title) {
               <div class="flex items-start gap-4">
-                <span class="text-xl mt-0.5">{{ f.icon }}</span>
+                <span class="text-xl mt-0.5" [innerHTML]="f.icon"></span>
                 <div>
                   <h4 class="text-sm font-semibold mb-1">{{ f.title }}</h4>
                   <p class="text-xs text-white/50">{{ f.desc }}</p>
@@ -59,7 +59,7 @@ import { ToastService } from '../../shared/services/toast.service';
                   : 'border-border bg-white text-text-muted hover:border-accent/30'"
                 (click)="selectedRole = r.value"
               >
-                <span class="text-lg">{{ r.icon }}</span>
+                <span class="text-lg" [innerHTML]="r.icon"></span>
                 <span>{{ r.label }}</span>
               </button>
             }
@@ -67,7 +67,7 @@ import { ToastService } from '../../shared/services/toast.service';
 
           <!-- Demo Hint -->
           <div class="bg-success/10 border border-success/30 rounded-lg px-3 py-2 text-xs text-success mb-5 flex items-center gap-1">
-            <span>💡</span>
+            <span><span class="material-symbols-outlined text-[1.2em] align-middle">lightbulb</span></span>
             <span>Demo:
               @switch (selectedRole) {
                 @case ('CUSTOMER') { customer1&#64;vidyutseva.com }
@@ -99,7 +99,7 @@ import { ToastService } from '../../shared/services/toast.service';
                 <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted pr-10" [type]="showPwd ? 'text' : 'password'" formControlName="password" placeholder="Enter your password"
                   [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
                 <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted text-sm" (click)="showPwd=!showPwd">
-                  {{ showPwd ? '🙈' : '👁️' }}
+                  @if (showPwd) { <span class="material-symbols-outlined text-[1.2em] align-middle">visibility_off</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">visibility</span> }
                 </button>
               </div>
               @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
@@ -111,7 +111,7 @@ import { ToastService } from '../../shared/services/toast.service';
             </div>
 
             <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full py-3 text-sm" type="submit" [disabled]="loading">
-              {{ loading ? '⏳ Signing in...' : '🔐 Sign In' }}
+              @if (loading) { <span class="material-symbols-outlined text-[1.2em] align-middle">hourglass_empty</span> Signing in... } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">lock</span> Sign In }
             </button>
           </form>
 
@@ -140,16 +140,16 @@ export class LoginComponent {
   loading = false;
 
   roles = [
-    { value: 'CUSTOMER' as const, label: 'Customer', icon: '👤' },
-    { value: 'ADMIN' as const, label: 'Admin', icon: '🛡️' },
-    { value: 'SME' as const, label: 'SME', icon: '🔧' },
+    { value: 'CUSTOMER' as const, label: 'Customer', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">person</span>' },
+    { value: 'ADMIN' as const, label: 'Admin', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">security</span>' },
+    { value: 'SME' as const, label: 'SME', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">build</span>' },
   ];
 
   features = [
     { icon: '⚡', title: 'Smart Billing', desc: 'Auto-calculated slab-based electricity billing' },
-    { icon: '📊', title: 'Usage Analytics', desc: 'Track your consumption with visual charts' },
-    { icon: '🔧', title: 'Complaint Management', desc: 'Raise and track service complaints in real time' },
-    { icon: '💳', title: 'Online Payments', desc: 'Secure card & UPI payment gateway' },
+    { icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">bar_chart</span>', title: 'Usage Analytics', desc: 'Track your consumption with visual charts' },
+    { icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">build</span>', title: 'Complaint Management', desc: 'Raise and track service complaints in real time' },
+    { icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span>', title: 'Online Payments', desc: 'Secure card & UPI payment gateway' },
   ];
 
   onSubmit() {

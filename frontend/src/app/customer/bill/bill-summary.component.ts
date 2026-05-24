@@ -38,7 +38,7 @@ import { AuthService } from '../../shared/services/auth.service';
           </div>
         } @else {
           <div class="empty-state">
-            <div class="empty-icon">📊</div>
+            <div class="empty-icon"><span class="material-symbols-outlined text-[1.2em] align-middle">bar_chart</span></div>
             <h3>No Data</h3>
             <p>No billing data available.</p>
           </div>

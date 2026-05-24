@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   template: `
     <div class="bg-card rounded-2xl p-5 flex items-start gap-4 shadow-sm border border-border transition-all duration-200 cursor-default hover:-translate-y-0.5 hover:shadow-lg" [style.border-left]="'4px solid ' + borderColor">
-      <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0" [style.background]="iconBg">{{ icon }}</div>
+      <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0" [style.background]="iconBg"><span class="material-symbols-outlined text-[1.2em] align-middle">{{ icon }}</span></div>
       <div class="flex-1">
         <div class="text-[0.72rem] font-medium text-text-secondary uppercase tracking-[0.05em] mb-1">{{ label }}</div>
         <div class="text-2xl font-bold text-text-primary leading-none">{{ value }}</div>
@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
   `
 })
 export class StatsCardComponent {
-  @Input() icon = '📊';
+  @Input() icon = 'bar_chart';
   @Input() label = 'Label';
   @Input() value = '0';
   @Input() iconBg = '#E8F4FD';

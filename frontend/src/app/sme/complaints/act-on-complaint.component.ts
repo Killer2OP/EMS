@@ -55,10 +55,10 @@ import { ToastService } from '../../shared/services/toast.service';
           <div class="card-body">
             <div class="mb-4">
               <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Status</label>
-              <select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9 bg-[url('data:image/svg+xml,%3Csvg_xmlns=\'http://www.w3.org/2000/svg\'_width=\'12\'_height=\'12\'_viewBox=\'0_0_12_12\'%3E%3Cpath_d=\'M2_4l4_4_4-4\'_stroke=\'%2364748B\'_stroke-width=\'1.5\'_fill=\'none\'/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center]" [(ngModel)]="newStatus">
+              <div class="relative w-full"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" [(ngModel)]="newStatus">
                 <option value="In Progress">In Progress</option>
                 <option value="Resolved">Resolved</option>
-              </select>
+              </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
             </div>
             <div class="mb-4">
               <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Remarks <span class="text-text-muted font-normal">(required when resolving)</span></label>
@@ -69,7 +69,7 @@ import { ToastService } from '../../shared/services/toast.service';
               <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted" type="date" [(ngModel)]="visitDate">
             </div>
             <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full py-3" (click)="submit()" [disabled]="submitting || (newStatus === 'Resolved' && !remarks)">
-              {{ submitting ? '⏳ Updating...' : '📝 Submit Update' }}
+              @if (submitting) { <span class="material-symbols-outlined text-[1.2em] align-middle">hourglass_empty</span> Updating... } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">edit</span> Submit Update }
             </button>
           </div>
         </div>

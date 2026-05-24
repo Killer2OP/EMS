@@ -19,14 +19,14 @@ import { ToastService } from '../../services/toast.service';
                }">
             <span>
               @switch (toast.type) {
-                @case ('success') { ✅ }
-                @case ('error') { ❌ }
-                @case ('info') { ℹ️ }
-                @case ('warning') { ⚠️ }
+                @case ('success') { <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> }
+                @case ('error') { <span class="material-symbols-outlined text-[1.2em] align-middle">cancel</span> }
+                @case ('info') { ℹ }
+                @case ('warning') { <span class="material-symbols-outlined text-[1.2em] align-middle">warning</span> }
               }
             </span>
             <span>{{ toast.message }}</span>
-            <button class="ml-auto bg-transparent border-none text-text-muted cursor-pointer p-1 rounded transition-colors hover:bg-black/5 dark:hover:bg-white/10 hover:text-text-primary" (click)="toastService.dismiss(toast.id)">✕</button>
+            <button class="ml-auto bg-transparent border-none text-text-muted cursor-pointer p-1 rounded transition-colors hover:bg-black/5 dark:hover:bg-white/10 hover:text-text-primary" (click)="toastService.dismiss(toast.id)"><span class="material-symbols-outlined text-[1.2em] align-middle">close</span></button>
           </div>
         }
       </div>

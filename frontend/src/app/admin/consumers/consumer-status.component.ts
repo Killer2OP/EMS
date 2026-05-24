@@ -37,7 +37,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
       <div class="bg-card rounded-2xl shadow-sm border border-border overflow-hidden w-full max-w-5xl">
         <div class="card-body text-center py-8">
           <div class="text-4xl mb-3">
-            {{ consumer.status === 'Active' ? '🟢' : '🔴' }}
+            @if (consumer.status === 'Active') { <span class="material-symbols-outlined text-[1.2em] align-middle">circle</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">circle</span> }
           </div>
           <h3 class="text-lg font-bold mb-1">
             Connection is currently <span [class]="consumer.status === 'Active' ? 'text-success' : 'text-danger'">{{ consumer.status }}</span>
@@ -52,11 +52,11 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
               <textarea class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors resize-y min-h-[100px] focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted" [(ngModel)]="reason" rows="3" placeholder="Enter reason (required)..."></textarea>
             </div>
             <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-red-500 text-white border-none hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed py-3 px-8" (click)="showConfirm = true" [disabled]="!reason">
-              ⚠️ Disconnect Consumer
+              <span class="material-symbols-outlined text-[1.2em] align-middle">warning</span> Disconnect Consumer
             </button>
           } @else {
             <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-green-500 text-white border-none hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed py-3 px-8" (click)="showConfirm = true">
-              ✅ Reconnect Consumer
+              <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> Reconnect Consumer
             </button>
           }
         </div>

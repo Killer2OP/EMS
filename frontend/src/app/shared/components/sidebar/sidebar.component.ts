@@ -53,7 +53,7 @@ interface NavItem {
             <!-- Active indicator -->
             <div class="hidden group-[.active]:block absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[60%] bg-electric rounded-r-[3px]"></div>
 
-            <span [id]="item.id + '-icon'" class="text-[1.1rem] shrink-0">{{ item.icon }}</span>
+            <span [id]="item.id + '-icon'" class="text-[1.1rem] shrink-0" [innerHTML]="item.icon"></span>
             <span [id]="item.id + '-label'" class="text-[0.82rem] font-medium whitespace-nowrap" [class.hidden]="collapsed">{{ item.label }}</span>
           </a>
         }
@@ -63,7 +63,7 @@ interface NavItem {
         <button id="logout-btn" class="flex items-center gap-3 w-full py-2.5 px-3 bg-transparent border border-red-500/25 text-red-400 rounded-lg cursor-pointer text-[0.82rem] font-medium transition-colors hover:bg-red-500/10"
                 [ngClass]="collapsed ? 'justify-center p-3' : ''"
                 (click)="logout()">
-          <span id="logout-icon">🚪</span>
+          <span id="logout-icon"><span class="material-symbols-outlined text-[1.2em] align-middle">logout</span></span>
           <span id="logout-label" [class.hidden]="collapsed">Logout</span>
         </button>
       </div>
@@ -86,28 +86,28 @@ export class SidebarComponent {
   get navItems(): NavItem[] {
     const role = this.user?.role;
     if (role === 'CUSTOMER') return [
-      { id: 'nav-cust-dashboard', label: 'Dashboard', icon: '🏠', route: '/customer/dashboard' },
-      { id: 'nav-cust-view-bill', label: 'View Bill', icon: '📄', route: '/customer/view-bill' },
-      { id: 'nav-cust-bill-summary', label: 'Bill Summary', icon: '📊', route: '/customer/bill-summary' },
-      { id: 'nav-cust-pay-bill', label: 'Pay Bill', icon: '💳', route: '/customer/pay-bill' },
-      { id: 'nav-cust-bill-history', label: 'Bill History', icon: '🗂️', route: '/customer/bill-history' },
-      { id: 'nav-cust-reg-complaint', label: 'Register Complaint', icon: '📝', route: '/customer/register-complaint' },
-      { id: 'nav-cust-comp-status', label: 'Complaint Status', icon: '🔍', route: '/customer/complaint-status' },
-      { id: 'nav-cust-my-complaints', label: 'View Complaints', icon: '📋', route: '/customer/my-complaints' },
+      { id: 'nav-cust-dashboard', label: 'Dashboard', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">home</span>', route: '/customer/dashboard' },
+      { id: 'nav-cust-view-bill', label: 'View Bill', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">description</span>', route: '/customer/view-bill' },
+      { id: 'nav-cust-bill-summary', label: 'Bill Summary', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">bar_chart</span>', route: '/customer/bill-summary' },
+      { id: 'nav-cust-pay-bill', label: 'Pay Bill', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">credit_card</span>', route: '/customer/pay-bill' },
+      { id: 'nav-cust-bill-history', label: 'Bill History', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">folder_special</span>', route: '/customer/bill-history' },
+      { id: 'nav-cust-reg-complaint', label: 'Register Complaint', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">edit</span>', route: '/customer/register-complaint' },
+      { id: 'nav-cust-comp-status', label: 'Complaint Status', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">search</span>', route: '/customer/complaint-status' },
+      { id: 'nav-cust-my-complaints', label: 'View Complaints', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">assignment</span>', route: '/customer/my-complaints' },
     ];
     if (role === 'ADMIN') return [
-      { id: 'nav-admin-dashboard', label: 'Dashboard', icon: '🏠', route: '/admin/dashboard' },
-      { id: 'nav-admin-add-cust', label: 'Add Customer', icon: '👤', route: '/admin/add-customer' },
-      { id: 'nav-admin-add-cons', label: 'Add Consumer', icon: '➕', route: '/admin/add-consumer' },
-      { id: 'nav-admin-list-cons', label: 'List Consumers', icon: '👥', route: '/admin/consumers' },
-      { id: 'nav-admin-add-bill', label: 'Add Bill', icon: '📝', route: '/admin/add-bill' },
-      { id: 'nav-admin-view-bills', label: 'View Bills', icon: '📄', route: '/admin/bills' },
-      { id: 'nav-admin-view-comps', label: 'View Complaints', icon: '📋', route: '/admin/complaints' },
+      { id: 'nav-admin-dashboard', label: 'Dashboard', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">home</span>', route: '/admin/dashboard' },
+      { id: 'nav-admin-add-cust', label: 'Add Customer', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">person</span>', route: '/admin/add-customer' },
+      { id: 'nav-admin-add-cons', label: 'Add Consumer', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">add</span>', route: '/admin/add-consumer' },
+      { id: 'nav-admin-list-cons', label: 'List Consumers', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">group</span>', route: '/admin/consumers' },
+      { id: 'nav-admin-add-bill', label: 'Add Bill', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">edit</span>', route: '/admin/add-bill' },
+      { id: 'nav-admin-view-bills', label: 'View Bills', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">description</span>', route: '/admin/bills' },
+      { id: 'nav-admin-view-comps', label: 'View Complaints', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">assignment</span>', route: '/admin/complaints' },
     ];
     if (role === 'SME') return [
-      { id: 'nav-sme-dashboard', label: 'Dashboard', icon: '🏠', route: '/sme/dashboard' },
-      { id: 'nav-sme-complaints', label: 'My Complaints', icon: '📋', route: '/sme/complaints' },
-      { id: 'nav-sme-search-comp', label: 'Search Complaint', icon: '🔍', route: '/sme/search-complaint' },
+      { id: 'nav-sme-dashboard', label: 'Dashboard', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">home</span>', route: '/sme/dashboard' },
+      { id: 'nav-sme-complaints', label: 'My Complaints', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">assignment</span>', route: '/sme/complaints' },
+      { id: 'nav-sme-search-comp', label: 'Search Complaint', icon: '<span class="material-symbols-outlined text-[1.2em] align-middle">search</span>', route: '/sme/search-complaint' },
     ];
     return [];
   }

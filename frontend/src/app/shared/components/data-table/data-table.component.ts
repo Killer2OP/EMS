@@ -54,7 +54,7 @@ export interface TableColumn {
               <tr>
                 <td [attr.colspan]="columns.length" class="text-center py-8">
                   <div class="text-center p-12 text-text-muted">
-                    <div class="text-5xl mb-4 opacity-50">📭</div>
+                    <div class="text-5xl mb-4 opacity-50"><span class="material-symbols-outlined text-[1.2em] align-middle">mark_email_unread</span></div>
                     <h3 class="text-base font-semibold text-text-secondary m-0 mb-2">No data found</h3>
                     <p class="text-[0.82rem] m-0">{{ emptyMessage }}</p>
                   </div>

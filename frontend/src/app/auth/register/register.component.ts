@@ -61,7 +61,7 @@ import { ToastService } from '../../shared/services/toast.service';
                 <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted pr-10" [type]="showPwd ? 'text' : 'password'" formControlName="password" placeholder="Min 8 chars, upper, lower, digit, special"
                   [class.error]="f('password')?.invalid && f('password')?.touched">
                 <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted text-sm" (click)="showPwd=!showPwd">
-                  {{ showPwd ? '🙈' : '👁️' }}
+                  @if (showPwd) { <span class="material-symbols-outlined text-[1.2em] align-middle">visibility_off</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">visibility</span> }
                 </button>
               </div>
               @if (f('password')?.hasError('required') && f('password')?.touched) {
@@ -78,11 +78,11 @@ import { ToastService } from '../../shared/services/toast.service';
                     <div class="h-1.5 flex-1 rounded-full transition-all" [class]="pwdStrength >= 5 ? 'bg-success' : 'bg-gray-200'"></div>
                   </div>
                   <div class="text-xs space-y-0.5">
-                    <div [class]="hasMinLength ? 'text-success' : 'text-text-muted'">{{ hasMinLength ? '✅' : '○' }} At least 8 characters</div>
-                    <div [class]="hasUppercase ? 'text-success' : 'text-text-muted'">{{ hasUppercase ? '✅' : '○' }} One uppercase letter</div>
-                    <div [class]="hasLowercase ? 'text-success' : 'text-text-muted'">{{ hasLowercase ? '✅' : '○' }} One lowercase letter</div>
-                    <div [class]="hasDigit ? 'text-success' : 'text-text-muted'">{{ hasDigit ? '✅' : '○' }} One digit</div>
-                    <div [class]="hasSpecial ? 'text-success' : 'text-text-muted'">{{ hasSpecial ? '✅' : '○' }} One special character (&#64;$!%*?&)</div>
+                    <div [class]="hasMinLength ? 'text-success' : 'text-text-muted'">@if (hasMinLength) { <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">radio_button_unchecked</span> } At least 8 characters</div>
+                    <div [class]="hasUppercase ? 'text-success' : 'text-text-muted'">@if (hasUppercase) { <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">radio_button_unchecked</span> } One uppercase letter</div>
+                    <div [class]="hasLowercase ? 'text-success' : 'text-text-muted'">@if (hasLowercase) { <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">radio_button_unchecked</span> } One lowercase letter</div>
+                    <div [class]="hasDigit ? 'text-success' : 'text-text-muted'">@if (hasDigit) { <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">radio_button_unchecked</span> } One digit</div>
+                    <div [class]="hasSpecial ? 'text-success' : 'text-text-muted'">@if (hasSpecial) { <span class="material-symbols-outlined text-[1.2em] align-middle">check_circle</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">radio_button_unchecked</span> } One special character (&#64;$!%*?&)</div>
                   </div>
                 </div>
               }
@@ -104,14 +104,9 @@ import { ToastService } from '../../shared/services/toast.service';
               }
             </div>
 
-            <!-- Consumer Number -->
-            <div class="mb-6">
-              <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Consumer Number <span class="text-text-muted font-normal">(for linking)</span></label>
-              <input class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 placeholder:text-text-muted" type="text" formControlName="consumerNumber" placeholder="e.g., CON-001">
-            </div>
 
             <button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[0.85rem] font-semibold cursor-pointer transition-all bg-gradient-to-br from-[#003087] to-[#0066CC] text-white border-none shadow-[0_4px_12px_rgba(0,102,204,0.3)] hover:shadow-[0_6px_16px_rgba(0,102,204,0.4)] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full py-3 text-sm" type="submit" [disabled]="loading">
-              {{ loading ? '⏳ Creating Account...' : '🚀 Create Account' }}
+              @if (loading) { <span class="material-symbols-outlined text-[1.2em] align-middle">hourglass_empty</span> Creating Account... } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">rocket_launch</span> Create Account }
             </button>
           </form>
 
@@ -144,7 +139,6 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(this.strongPasswordPattern)]],
     confirmPassword: ['', Validators.required],
-    consumerNumber: [''],
   });
 
   f(field: string) { return this.registerForm.get(field); }
@@ -172,16 +166,17 @@ export class RegisterComponent {
       return;
     }
     this.loading = true;
-    const { name, email, password, consumerNumber } = this.registerForm.value;
-    this.auth.register({ name: name!, email: email!, password: password!, consumerNumber: consumerNumber || undefined }).subscribe({
+    const { name, email, password } = this.registerForm.value;
+    this.auth.register({ name: name!, email: email!, password: password! }).subscribe({
       next: () => {
         this.loading = false;
         this.toast.success('Registration successful! Please login.');
         this.router.navigate(['/auth/login']);
       },
-      error: () => {
+      error: (err) => {
         this.loading = false;
-        this.toast.error('Registration failed. Please try again.');
+        const msg = err?.error?.message || 'Registration failed. Please try again.';
+        this.toast.error(msg);
       }
     });
   }

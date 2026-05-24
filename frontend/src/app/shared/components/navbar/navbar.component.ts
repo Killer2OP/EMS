@@ -8,7 +8,7 @@ import { ThemeService } from '../../services/theme.service';
   template: `
     <header id="top-navbar" class="h-16 bg-gradient-to-br from-[#003087] to-[#0066CC] dark:from-slate-900 dark:to-slate-800 flex items-center px-6 gap-4 shrink-0 text-white dark:text-slate-200">
       <button id="navbar-toggle-btn" class="bg-white/10 border-none cursor-pointer px-2.5 py-1.5 rounded-md text-inherit text-[1.1rem] transition-colors hover:bg-white/20" (click)="toggleSidebar.emit()">
-        <span>☰</span>
+        <span><span class="material-symbols-outlined text-[1.2em] align-middle">menu</span></span>
       </button>
       <div id="navbar-title-container" class="flex-1">
         <h2 id="navbar-title" class="m-0 text-base font-semibold text-inherit">{{ title }}</h2>
@@ -16,7 +16,7 @@ import { ThemeService } from '../../services/theme.service';
       </div>
       <div id="navbar-actions" class="flex items-center gap-3">
         <button id="theme-toggle-btn" class="relative bg-white/10 border-none cursor-pointer p-2 rounded-lg text-inherit text-[1.1rem] transition-colors hover:bg-white/20" (click)="themeService.toggle()" title="Toggle theme">
-          {{ themeService.isDark() ? '☀️' : '🌙' }}
+          @if (themeService.isDark()) { <span class="material-symbols-outlined text-[1.2em] align-middle">light_mode</span> } @else { <span class="material-symbols-outlined text-[1.2em] align-middle">dark_mode</span> }
         </button>
 
         <button id="avatar-btn" class="flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-lg cursor-pointer transition-colors hover:bg-white/20">
