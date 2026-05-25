@@ -241,8 +241,14 @@ export class PayBillComponent implements OnInit {
 
   ngOnInit() {
     const consumerNo = this.auth.getCurrentUser()?.consumerNumber || 'CON-001';
-    this.billService.getLatest(consumerNo).subscribe(b => {
-      if (b && b.status !== 'Paid') this.bill = b;
+    this.billService.getByConsumer(consumerNo).subscribe(bills => {
+      if (bills && bills.length > 0) {
+        const unpaidBills = bills.filter(b => b.status !== 'Paid');
+        if (unpaidBills.length > 0) {
+          // Sort by id descending to get the most recent unpaid bill
+          this.bill = unpaidBills.sort((a, b) => b.id - a.id)[0];
+        }
+      }
     });
     this.applyMethodValidators();
   }

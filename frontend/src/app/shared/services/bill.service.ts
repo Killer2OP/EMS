@@ -79,7 +79,10 @@ export class BillService {
 
   getLatest(consumerId: string): Observable<Bill | undefined> {
     return this.getByConsumer(consumerId).pipe(
-      map(bills => bills.length > 0 ? bills[0] : undefined)
+      map(bills => {
+        if (!bills || bills.length === 0) return undefined;
+        return [...bills].sort((a, b) => b.id - a.id)[0];
+      })
     );
   }
 
