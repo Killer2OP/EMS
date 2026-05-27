@@ -34,6 +34,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                // Swagger UI & OpenAPI spec — must be public
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/swagger-resources/**",
+                    "/webjars/**"
+                ).permitAll()
                 .requestMatchers("/api/consumers/**").hasRole("ADMIN")
                 .requestMatchers("/api/complaints/active").hasRole("ADMIN")
                 .requestMatchers("/api/complaints/*/assign").hasRole("ADMIN")

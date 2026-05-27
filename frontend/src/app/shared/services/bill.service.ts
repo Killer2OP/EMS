@@ -59,7 +59,7 @@ export class BillService {
       status: (b.status === 'PAID' ? 'Paid' : b.status === 'OVERDUE' ? 'Overdue' : 'Unpaid') as Bill['status'],
       dueDate: b.dueDate,
       paidDate: b.status === 'PAID' ? b.dueDate : undefined,
-      zone: 'Default Zone'
+      zone: 'Ujjain'
     };
   }
 

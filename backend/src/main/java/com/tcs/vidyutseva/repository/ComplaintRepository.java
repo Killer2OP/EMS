@@ -12,6 +12,7 @@ import java.util.List;
 public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
     List<Complaint> findByStatusIn(List<ComplaintStatus> statuses);
     List<Complaint> findByAssignedSmeIdAndStatus(Long smeId, ComplaintStatus status);
+    List<Complaint> findByAssignedSmeId(Long smeId);
     List<Complaint> findByConsumerId(Long consumerId);
 
     @Query("SELECT COUNT(c) FROM Complaint c WHERE c.status = com.tcs.vidyutseva.enums.ComplaintStatus.OPEN")

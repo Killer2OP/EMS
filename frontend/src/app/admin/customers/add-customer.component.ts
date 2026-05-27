@@ -54,11 +54,18 @@ import { ToastService } from '../../shared/services/toast.service';
               }
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Zone</label>
+              <label class="block text-[0.78rem] font-semibold text-text-primary mb-1.5">Area</label>
               <div class="relative w-full"><select class="w-full px-3.5 py-2.5 border-[1.5px] border-input-border rounded-lg text-[0.85rem] text-input-text bg-input-bg outline-none transition-colors focus:border-[#0066CC] focus:ring-[3px] focus:ring-[#0066CC]/10 dark:focus:border-blue-500 dark:focus:ring-blue-500/20 appearance-none pr-9" formControlName="zone">
-                <option value="Zone A">Zone A</option>
-                <option value="Zone B">Zone B</option>
-                <option value="Zone C">Zone C</option>
+                <option value="Vijay Nagar">Vijay Nagar</option>
+                <option value="Rau">Rau</option>
+                <option value="Pithampur">Pithampur</option>
+                <option value="Freeganj">Freeganj</option>
+                <option value="Dewas">Dewas</option>
+                <option value="Ujjain">Ujjain</option>
+                <option value="Indore">Indore</option>
+                <option value="Maksi Road">Maksi Road</option>
+                <option value="Tarana">Tarana</option>
+                <option value="Nagda">Nagda</option>
               </select><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span></div>
             </div>
           </div>
@@ -129,7 +136,7 @@ export class AddCustomerComponent {
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
     address: ['', [Validators.required, Validators.minLength(5)]],
-    zone: ['Zone A'],
+    zone: ['Vijay Nagar'],
     connectionType: ['Domestic'],
     password: ['', [Validators.pattern(this.strongPasswordPattern)]],
   });
@@ -184,7 +191,7 @@ export class AddCustomerComponent {
 
   closeModal() {
     this.showCredentials = false;
-    this.customerForm.reset({ zone: 'Zone A', connectionType: 'Domestic' });
+    this.customerForm.reset({ zone: 'Vijay Nagar', connectionType: 'Domestic' });
   }
 }
 

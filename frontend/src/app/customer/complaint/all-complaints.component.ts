@@ -69,8 +69,10 @@ export class AllComplaintsComponent implements OnInit {
   statusFilter = 'All';
 
   ngOnInit() {
-    const userId = this.auth.getCurrentUser()?.id || 1;
-    this.complaintService.getByCustomer(userId).subscribe(c => {
+    const user = this.auth.getCurrentUser();
+    // consumerNumber stores the consumerId returned from the backend on login
+    const consumerId = Number(user?.consumerNumber) || user?.id || 1;
+    this.complaintService.getByCustomer(consumerId).subscribe(c => {
       this.allComplaints = c;
       this.applyFilter();
     });

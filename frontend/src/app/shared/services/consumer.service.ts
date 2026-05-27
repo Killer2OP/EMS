@@ -35,6 +35,12 @@ interface BackendConsumerResponse {
 export class ConsumerService {
   private http = inject(HttpClient);
 
+  private extractArea(address: string): string {
+    const areas = ['Vijay Nagar','Rau','Pithampur','Freeganj','Dewas','Ujjain','Indore','Maksi Road','Tarana','Nagda'];
+    const found = areas.find(a => address.toLowerCase().includes(a.toLowerCase()));
+    return found ?? 'Ujjain';
+  }
+
   private mapToFrontend(b: BackendConsumerResponse): Consumer {
     return {
       id: b.id,
@@ -47,7 +53,7 @@ export class ConsumerService {
       connectionDate: b.createdAt,
       tariffCategory: b.tariffType,
       status: 'Active',
-      zone: 'Default Zone',
+      zone: this.extractArea(b.address),
     };
   }
 

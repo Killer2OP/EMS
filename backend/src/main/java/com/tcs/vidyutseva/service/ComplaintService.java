@@ -32,6 +32,9 @@ public class ComplaintService {
     public ComplaintResponse raiseComplaint(RaiseComplaintRequest req, Long userId) {
         UserAccount user = userRepo.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (user.getConsumer() == null)
+            throw new RuntimeException("Only customers with a linked consumer account can raise complaints. " +
+                                       "Admin/SME users must use the /admin-log endpoint instead.");
         Complaint c = Complaint.builder()
             .consumer(user.getConsumer())
             .raisedBy(user)
@@ -78,15 +81,16 @@ public class ComplaintService {
     }
 
     public List<ComplaintResponse> getSmeAssignedComplaints(Long smeUserId) {
-        return complaintRepo.findByAssignedSmeIdAndStatus(smeUserId, ComplaintStatus.ASSIGNED)
+        return complaintRepo.findByAssignedSmeId(smeUserId)
             .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public ComplaintResponse resolveComplaint(Long complaintId, ResolveComplaintRequest req) {
         Complaint c = complaintRepo.findById(complaintId)
             .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
-        c.setStatus(ComplaintStatus.CLOSED);
+        c.setStatus(ComplaintStatus.RESOLVED);
         c.setResolvedAt(LocalDateTime.now());
+        c.setResolutionNotes(req.getResolutionNotes());
         return toResponse(complaintRepo.save(c));
     }
 
@@ -114,6 +118,7 @@ public class ComplaintService {
             .loggedByAdmin(c.isLoggedByAdmin())
             .createdAt(c.getCreatedAt() != null ? c.getCreatedAt().toString() : null)
             .resolvedAt(c.getResolvedAt() != null ? c.getResolvedAt().toString() : null)
+            .resolutionNotes(c.getResolutionNotes())
             .build();
     }
 }

@@ -16,4 +16,5 @@ public class ComplaintResponse {
     private boolean loggedByAdmin;
     private String createdAt;
     private String resolvedAt;
+    private String resolutionNotes;
 }

@@ -33,6 +33,12 @@ interface BackendConsumerResponse {
 export class CustomerService {
   private http = inject(HttpClient);
 
+  private extractArea(address: string): string {
+    const areas = ['Vijay Nagar','Rau','Pithampur','Freeganj','Dewas','Ujjain','Indore','Maksi Road','Tarana','Nagda'];
+    const found = areas.find(a => address.toLowerCase().includes(a.toLowerCase()));
+    return found ?? 'Ujjain';
+  }
+
   private mapToCustomer(b: BackendConsumerResponse): Customer {
     return {
       id: b.id,
@@ -40,7 +46,7 @@ export class CustomerService {
       email: b.linkedUsername ? `${b.linkedUsername}@example.com` : 'unknown@email.com',
       phone: '9999999999',
       address: b.address,
-      zone: 'Default Zone',
+      zone: this.extractArea(b.address),
       connectionType: b.tariffType === 'DOMESTIC' ? 'Domestic' : 'Commercial',
       meterNumber: b.meterNumber,
       status: 'Active',
