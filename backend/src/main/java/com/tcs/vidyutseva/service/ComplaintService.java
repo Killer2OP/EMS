@@ -11,6 +11,7 @@ import com.tcs.vidyutseva.entity.UserAccount;
 import com.tcs.vidyutseva.enums.ComplaintStatus;
 import com.tcs.vidyutseva.enums.Role;
 import com.tcs.vidyutseva.exception.ResourceNotFoundException;
+import com.tcs.vidyutseva.exception.UnauthorizedRoleException;
 import com.tcs.vidyutseva.repository.ComplaintRepository;
 import com.tcs.vidyutseva.repository.ConsumerRepository;
 import com.tcs.vidyutseva.repository.UserAccountRepository;
@@ -75,6 +76,9 @@ public class ComplaintService {
         UserAccount sme = userRepo.findById(req.getSmeUserId())
             .orElseThrow(() -> new ResourceNotFoundException("SME not found"));
         if (sme.getRole() != Role.SME) throw new RuntimeException("User is not an SME");
+        if (c.getStatus() != ComplaintStatus.OPEN) {
+            throw new IllegalArgumentException("Complaint state must be OPEN to assign an SME");
+        }
         c.setAssignedSme(sme);
         c.setStatus(ComplaintStatus.ASSIGNED);
         return toResponse(complaintRepo.save(c));
@@ -88,20 +92,36 @@ public class ComplaintService {
     public ComplaintResponse resolveComplaint(Long complaintId, ResolveComplaintRequest req) {
         Complaint c = complaintRepo.findById(complaintId)
             .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
+        if (c.getStatus() == ComplaintStatus.RESOLVED || c.getStatus() == ComplaintStatus.CLOSED) {
+            throw new IllegalArgumentException("Complaint is already resolved or closed");
+        }
+        if (c.getStatus() == ComplaintStatus.OPEN) {
+            throw new IllegalArgumentException("Complaint must be ASSIGNED before it can be resolved");
+        }
         c.setStatus(ComplaintStatus.RESOLVED);
         c.setResolvedAt(LocalDateTime.now());
         c.setResolutionNotes(req.getResolutionNotes());
         return toResponse(complaintRepo.save(c));
     }
 
-    public List<ComplaintResponse> getComplaintsByConsumer(Long consumerId) {
+    public List<ComplaintResponse> getComplaintsByConsumer(Long consumerId, Long userId) {
+        UserAccount user = userRepo.findById(userId).orElseThrow();
+        if (user.getRole() != Role.ADMIN && (user.getConsumer() == null || !user.getConsumer().getId().equals(consumerId))) {
+            throw new UnauthorizedRoleException("Not authorized to view these complaints");
+        }
         return complaintRepo.findByConsumerId(consumerId)
             .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
-    public ComplaintResponse getComplaintById(Long id) {
+    public ComplaintResponse getComplaintById(Long id, Long userId) {
         Complaint c = complaintRepo.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Complaint not found: " + id));
+        UserAccount user = userRepo.findById(userId).orElseThrow();
+        if (user.getRole() == Role.CUSTOMER) {
+            if (user.getConsumer() == null || !user.getConsumer().getId().equals(c.getConsumer().getId())) {
+                throw new UnauthorizedRoleException("Not authorized to view this complaint");
+            }
+        }
         return toResponse(c);
     }
 

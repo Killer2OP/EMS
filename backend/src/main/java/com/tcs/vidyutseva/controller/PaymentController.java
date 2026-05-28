@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +23,13 @@ public class PaymentController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/online")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<PaymentResponse> processOnlinePayment(@Valid @RequestBody OnlinePaymentRequest req) {
         return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.processOnlinePayment(req));
     }
 
     @PostMapping("/offline")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PaymentResponse> processOfflinePayment(@Valid @RequestBody OfflinePaymentRequest req,
                                                                    HttpServletRequest httpReq) {
         Long adminId = extractUserId(httpReq);

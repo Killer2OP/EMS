@@ -2,6 +2,7 @@ package com.tcs.vidyutseva.service;
 
 import com.tcs.vidyutseva.dto.request.LoginRequest;
 import com.tcs.vidyutseva.dto.request.RegisterRequest;
+import com.tcs.vidyutseva.dto.request.ResetPasswordRequest;
 import com.tcs.vidyutseva.dto.response.AuthResponse;
 import com.tcs.vidyutseva.entity.Consumer;
 import com.tcs.vidyutseva.entity.UserAccount;
@@ -78,5 +79,17 @@ public class AuthService {
             .userId(user.getId()).username(user.getUsername())
             .consumerId(user.getConsumer() != null ? user.getConsumer().getId() : null)
             .build();
+    }
+
+    public void resetPassword(Long userId, ResetPasswordRequest req) {
+        UserAccount user = userRepo.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        if (!passwordEncoder.matches(req.getOldPassword(), user.getPasswordHash())) {
+            throw new IllegalArgumentException("Incorrect old password");
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(req.getNewPassword()));
+        userRepo.save(user);
     }
 }

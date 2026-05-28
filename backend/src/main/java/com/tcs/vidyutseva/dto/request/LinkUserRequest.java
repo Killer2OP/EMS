@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class LinkUserRequest {
-    @NotNull private Long userId;
-    @NotNull private Long consumerId;
+    @NotNull(message = "User ID is required") private Long userId;
+    @NotNull(message = "Consumer ID is required") private Long consumerId;
 }

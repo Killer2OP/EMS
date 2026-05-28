@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import java.util.List;
 
 @RestController
@@ -18,6 +20,7 @@ public class BillController {
     private final BillService billService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<BillResponse>> getAllBills() {
         return ResponseEntity.ok(billService.getAllBills());
     }
@@ -38,11 +41,13 @@ public class BillController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BillResponse> generateBill(@Valid @RequestBody GenerateBillRequest req) {
         return ResponseEntity.status(HttpStatus.CREATED).body(billService.generateBill(req));
     }
 
     @DeleteMapping("/{billId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteBill(@PathVariable Long billId) {
         billService.deleteBill(billId);
         return ResponseEntity.noContent().build();

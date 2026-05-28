@@ -3,6 +3,7 @@ package com.tcs.vidyutseva.entity;
 import com.tcs.vidyutseva.enums.TariffType;
 import jakarta.persistence.*;
 import lombok.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,15 +15,23 @@ public class Consumer {
     private Long id;
 
     @Column(name = "consumer_number", unique = true, nullable = false, length = 13)
+    @NotBlank
+    @Pattern(regexp = "^\\d{13}$")
     private String consumerNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 150)
+    @NotBlank
+    @Size(min = 5, max = 150)
     private String address;
 
-    @Column(name = "meter_number", nullable = false)
+    @Column(name = "meter_number", nullable = false, length = 20)
+    @NotBlank
+    @Pattern(regexp = "^MTR-\\d{3,6}$")
     private String meterNumber;
 
     @Enumerated(EnumType.STRING)

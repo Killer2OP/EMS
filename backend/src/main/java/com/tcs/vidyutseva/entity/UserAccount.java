@@ -3,6 +3,7 @@ package com.tcs.vidyutseva.entity;
 import com.tcs.vidyutseva.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,16 +14,23 @@ public class UserAccount {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 50)
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String username;
 
     @Column(name = "password_hash", nullable = false)
+    @NotBlank
     private String passwordHash;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 100)
+    @NotBlank
+    @Email
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15)
+    @NotBlank
+    @Pattern(regexp = "^\\d{10}$")
     private String phone;
 
     @Enumerated(EnumType.STRING)

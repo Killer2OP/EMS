@@ -8,5 +8,7 @@ public class InvoiceResponse {
     private Long id;
     private Long paymentId;
     private String invoiceNumber;
+    private Double amountPaid;
+    private String transactionRef;
     private String generatedAt;
 }

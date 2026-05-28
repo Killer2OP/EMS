@@ -84,3 +84,12 @@ VALUES
 
 -- Assign the second complaint to sme1
 UPDATE complaints SET assigned_sme_id = 2 WHERE id = 2;
+
+-- =============================================
+-- CARDS (for testing online payments)
+-- =============================================
+INSERT INTO cards (card_number, card_holder_name, cvv, expiry_date) VALUES
+('1234567812345678', 'John Doe', '123', '12/25'),
+('8765432187654321', 'Jane Doe', '456', '11/26'),
+('1111222233334444', 'Test User', '789', '10/27');
+

@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class AssignSmeRequest {
-    @NotNull private Long smeUserId;
+    @NotNull(message = "SME User ID is required") private Long smeUserId;
 }

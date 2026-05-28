@@ -59,11 +59,18 @@ public class BillService {
             case INDUSTRIAL -> ApplicationConstants.INDUSTRIAL_RATE;
         };
 
+        double currentAmountDue = req.getUnitsConsumed() * rate;
+
+        List<Bill> previousUnpaidBills = billRepo.findByConsumerIdAndStatus(req.getConsumerId(), BillStatus.UNPAID);
+        double previousDues = previousUnpaidBills.stream().mapToDouble(Bill::getAmountDue).sum();
+        
+        double totalAmountDue = currentAmountDue + previousDues;
+
         Bill bill = Bill.builder()
             .consumer(consumer)
             .billingPeriod(req.getBillingPeriod())
             .unitsConsumed(req.getUnitsConsumed())
-            .amountDue(req.getUnitsConsumed() * rate)
+            .amountDue(totalAmountDue)
             .dueDate(LocalDate.now().plusDays(30))
             .status(BillStatus.UNPAID)
             .build();

@@ -35,7 +35,7 @@ public class ConsumerService {
 
     public ConsumerResponse addConsumer(AddConsumerRequest req) {
         if (consumerRepo.existsByConsumerNumber(req.getConsumerNumber()))
-            throw new RuntimeException("Consumer number already exists");
+            throw new IllegalArgumentException("Consumer number already exists");
 
         Consumer c = Consumer.builder()
             .consumerNumber(req.getConsumerNumber())

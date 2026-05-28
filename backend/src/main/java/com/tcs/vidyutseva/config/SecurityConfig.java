@@ -42,13 +42,7 @@ public class SecurityConfig {
                     "/swagger-resources/**",
                     "/webjars/**"
                 ).permitAll()
-                .requestMatchers("/api/consumers/**").hasRole("ADMIN")
-                .requestMatchers("/api/complaints/active").hasRole("ADMIN")
-                .requestMatchers("/api/complaints/*/assign").hasRole("ADMIN")
-                .requestMatchers("/api/complaints/admin-log").hasRole("ADMIN")
                 .requestMatchers("/api/payments/offline").hasRole("ADMIN")
-                .requestMatchers("/api/complaints/sme/assigned").hasRole("SME")
-                .requestMatchers("/api/complaints/*/resolve").hasRole("SME")
                 .anyRequest().authenticated()
             )
             .headers(h -> h.frameOptions(f -> f.disable()))

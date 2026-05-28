@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class ComplaintController {
     }
 
     @PostMapping("/admin-log")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ComplaintResponse> adminLogComplaint(@Valid @RequestBody AdminLogComplaintRequest req,
                                                                 HttpServletRequest httpReq) {
         Long adminId = extractUserId(httpReq);
@@ -44,44 +46,52 @@ public class ComplaintController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ComplaintResponse>> getAllComplaints() {
         return ResponseEntity.ok(complaintService.getAllComplaints());
     }
 
     @GetMapping("/active")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ComplaintResponse>> getActiveComplaints() {
         return ResponseEntity.ok(complaintService.getAllActiveComplaints());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ComplaintResponse> getComplaintById(@PathVariable Long id) {
-        return ResponseEntity.ok(complaintService.getComplaintById(id));
+    public ResponseEntity<ComplaintResponse> getComplaintById(@PathVariable Long id, HttpServletRequest request) {
+        Long userId = extractUserId(request);
+        return ResponseEntity.ok(complaintService.getComplaintById(id, userId));
     }
 
     @PutMapping("/{complaintId}/assign")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ComplaintResponse> assignSme(@PathVariable Long complaintId,
                                                         @Valid @RequestBody AssignSmeRequest req) {
         return ResponseEntity.ok(complaintService.assignSme(complaintId, req));
     }
 
     @GetMapping("/sme/assigned")
+    @PreAuthorize("hasRole('SME')")
     public ResponseEntity<List<ComplaintResponse>> getSmeAssignedComplaints(HttpServletRequest httpReq) {
         Long smeId = extractUserId(httpReq);
         return ResponseEntity.ok(complaintService.getSmeAssignedComplaints(smeId));
     }
 
     @PutMapping("/{complaintId}/resolve")
+    @PreAuthorize("hasRole('SME')")
     public ResponseEntity<ComplaintResponse> resolveComplaint(@PathVariable Long complaintId,
                                                                @Valid @RequestBody ResolveComplaintRequest req) {
         return ResponseEntity.ok(complaintService.resolveComplaint(complaintId, req));
     }
 
     @GetMapping("/consumer/{consumerId}")
-    public ResponseEntity<List<ComplaintResponse>> getComplaintsByConsumer(@PathVariable Long consumerId) {
-        return ResponseEntity.ok(complaintService.getComplaintsByConsumer(consumerId));
+    public ResponseEntity<List<ComplaintResponse>> getComplaintsByConsumer(@PathVariable Long consumerId, HttpServletRequest request) {
+        Long userId = extractUserId(request);
+        return ResponseEntity.ok(complaintService.getComplaintsByConsumer(consumerId, userId));
     }
 
     @GetMapping("/sme-list")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Map<String, Object>>> getSmeList() {
         return ResponseEntity.ok(
             userRepo.findByRole(Role.SME).stream()

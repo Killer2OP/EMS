@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class ResolveComplaintRequest {
-    @NotBlank private String resolutionNotes;
+    @NotBlank(message = "Resolution notes are required") @jakarta.validation.constraints.Size(min = 10, message = "Resolution notes must be at least 10 characters") private String resolutionNotes;
 }

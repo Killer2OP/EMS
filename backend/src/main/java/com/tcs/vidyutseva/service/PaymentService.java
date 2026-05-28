@@ -9,6 +9,7 @@ import com.tcs.vidyutseva.enums.BillStatus;
 import com.tcs.vidyutseva.enums.PaymentMode;
 import com.tcs.vidyutseva.enums.PaymentStatus;
 import com.tcs.vidyutseva.exception.ResourceNotFoundException;
+import com.tcs.vidyutseva.exception.InvalidCardException;
 import com.tcs.vidyutseva.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class PaymentService {
     private final BillRepository billRepo;
     private final InvoiceRepository invoiceRepo;
     private final UserAccountRepository userRepo;
+    private final CardRepository cardRepository;
 
     @Transactional
     public PaymentResponse processOnlinePayment(OnlinePaymentRequest req) {
@@ -36,6 +38,13 @@ public class PaymentService {
 
         if (bill.getStatus() == BillStatus.PAID)
             throw new RuntimeException("Bill is already paid");
+
+        Card card = cardRepository.findByCardNumber(req.getCardNumber())
+            .orElseThrow(() -> new InvalidCardException("Invalid card details"));
+
+        if (!card.getCardHolderName().equalsIgnoreCase(req.getCardHolderName()) || !card.getCvv().equals(req.getCvv())) {
+            throw new InvalidCardException("Invalid card details");
+        }
 
         Payment payment = Payment.builder()
             .bill(bill)
